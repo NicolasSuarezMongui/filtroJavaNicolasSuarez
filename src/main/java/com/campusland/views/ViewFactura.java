@@ -1,11 +1,10 @@
 package com.campusland.views;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import com.campusland.exceptiones.facturaexceptions.FacturaExceptionInsertDataBase;
-import com.campusland.respository.models.Cliente;
-import com.campusland.respository.models.Factura;
-import com.campusland.respository.models.ItemFactura;
-import com.campusland.respository.models.Producto;
+import com.campusland.respository.models.*;
 
 public class ViewFactura extends ViewMain {
 
@@ -23,12 +22,24 @@ public class ViewFactura extends ViewMain {
                 case 2:
                     listarFactura();
                     break;
+                case 3:
+                    crearReporteDian();
+                    break;
+                case 4:
+                    reporteTotales();
+                    break;
+                case 5:
+                    reporteClientes();
+                    break;
+                case 6:
+                    reporteProductos();
+                    break;
                 default:
                     System.out.println("Opcion no valida");
                     break;
             }
 
-        } while (op >= 1 && op < 3);
+        } while (op >= 1 && op < 7);
 
     }
 
@@ -36,8 +47,28 @@ public class ViewFactura extends ViewMain {
         System.out.println("----Menu--Factura----");
         System.out.println("1. Crear factura.");
         System.out.println("2. Listar factura.");
-        System.out.println("3. Salir ");
+        System.out.println("3. Generar archivo DIAN por año.");
+        System.out.println("4. Generar total ventas, descuentos, e impuestos.");
+        System.out.println("5. Listado descendente clientes por compras.");
+        System.out.println("6. Listado descendente producto más vendido.");
+        System.out.println("7. Salir ");
         return leer.nextInt();
+    }
+
+    public static void reporteTotales(){
+        System.out.println("Total ventas: " + serviceFactura.totalVentas());
+        System.out.println("Total descuentos: " + serviceFactura.totalDescuentos());
+        System.out.println("Total impuestos: " + serviceFactura.totalImpuestos());
+    }
+
+    public static void reporteClientes(){
+        System.out.println("Listado descendente clientes por compras");
+        serviceFactura.listarClientesPorCompras();
+    }
+
+    public static void reporteProductos(){
+        System.out.println("Listado descendente producto más vendido");
+        serviceFactura.listarProductosMasVendidos();
     }
 
     public static void listarFactura() {
@@ -45,6 +76,14 @@ public class ViewFactura extends ViewMain {
         for (Factura factura : serviceFactura.listar()) {
             factura.display();
             System.out.println();
+        }
+    }
+
+    public static void crearReporteDian(){
+        System.out.println("Generar archivo DIAN por año");
+        int anho = 2023;
+        for (Factura factura : serviceFactura.listarPorAnho(anho)) {
+            repositoryImpuesto.crearImpuesto(new Impuesto(factura));
         }
     }
 
@@ -78,12 +117,14 @@ public class ViewFactura extends ViewMain {
             }
 
         } while (true);
-        
 
         try {
+            factura.calcTotalDescuentos(serviceDescuento.listarAAplicar(factura));
+            factura.calcImpuesto(serviceFactura.getImpuestoAnual(factura.getFecha().getYear()));
             serviceFactura.crear(factura);
             System.out.println("Se creó la factura");
-            factura.display();
+            List<Descuento> descuentos = serviceDescuento.listarAAplicar(factura);
+            factura.display(descuentos);
         } catch (FacturaExceptionInsertDataBase e) {
             System.out.println(e.getMessage());
         }

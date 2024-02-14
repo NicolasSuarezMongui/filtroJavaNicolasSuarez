@@ -10,5 +10,11 @@ public interface RepositoryFactura {
     List<Factura> listar();
 
     void crear(Factura factura)throws FacturaExceptionInsertDataBase;
+
+    void listarClientesPorCompras();
+
+    void listarProductosMasVendidos();
+
+    double getImpuestoAnual(int anho);
     
 }

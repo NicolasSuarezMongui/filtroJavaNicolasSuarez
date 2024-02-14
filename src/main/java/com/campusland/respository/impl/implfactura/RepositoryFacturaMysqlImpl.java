@@ -22,10 +22,15 @@ import java.sql.Statement;
 
 public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
 
-    private static final String SQL_GET_LIST_FACTURAS = "SELECT f.numeroFactura, f.fecha, c.id, c.nombre, c.apellido, c.email, c.direccion, c.celular, c.documento FROM factura f JOIN cliente c ON c.id=f.cliente_id ORDER BY f.numeroFactura asc";
+    private static final String SQL_GET_LIST_FACTURAS = "SELECT f.numeroFactura, f.fecha, c.id, c.nombre, c.apellido, c.email, c.direccion, c.celular, c.documento, f.descuento, f.impuesto FROM factura f JOIN cliente c ON c.id=f.cliente_id ORDER BY f.numeroFactura asc";
     private static final String SQL_GET_LIST_ITEMS_FACTURAS = "SELECT i.id,i.cantidad,i.importe,p.codigo,p.nombre,p.descripcion,p.precioVenta,p.precioCompra  FROM item_factura i join producto p on i.producto_codigo=p.codigo WHERE i.factura_numeroFactura =?";
-    private static final String INSERT_FACTURA = "INSERT INTO factura (fecha, cliente_id) VALUES (?, ?)";
+    private static final String INSERT_FACTURA = "INSERT INTO factura (fecha, cliente_id, descuento, impuesto) VALUES (?, ?, ?, ?)";
     private static final String INSERT_ITEM_FACTURA = "INSERT INTO item_factura (factura_numeroFactura, producto_codigo, cantidad, importe) VALUES (?, ?, ?, ?)";
+
+    private static final String SQL_GET_LIST_CLIENTES_COMPRAS = "SELECT c.id, c.nombre, c.apellido, SUM(itf.importe) AS total FROM cliente c INNER JOIN factura ON c.id = factura.cliente_id INNER JOIN item_factura itf ON factura.numeroFactura = itf.factura_numeroFactura GROUP BY c.id ORDER BY total DESC";
+    private static final String SQL_GET_LIST_PRODUCTOS_VENDIDOS = "SELECT P.nombre, SUM(itf.cantidad) AS total FROM producto p INNER JOIN item_factura itf ON p.codigo = itf.producto_codigo GROUP BY p.codigo ORDER BY total DESC";
+
+
 
     private Connection getConnection() throws SQLException {
         return ConexionBDMysql.getInstance();
@@ -53,9 +58,50 @@ public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
 
        
         return listFacturas;
-    }   
+    }
 
-    private void obtenerItemsFactura(Connection connection,Factura factura) throws SQLException {
+    @Override
+    public void listarClientesPorCompras() {
+        try (Connection conn = getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(SQL_GET_LIST_CLIENTES_COMPRAS)) {
+            while (rs.next()) {
+                System.out.println("Cliente: " + rs.getString("nombre") + " " + rs.getString("apellido") + " Total: " + rs.getDouble("total"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double getImpuestoAnual(int anho){
+        double value = 0;
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement("SELECT porcentaje FROM impuestos WHERE anho = ?")) {
+            preparedStatement.setInt(1, anho);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    value = rs.getDouble(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
+    @Override
+    public void listarProductosMasVendidos() {
+        try (Connection conn = getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(SQL_GET_LIST_PRODUCTOS_VENDIDOS)) {
+            while (rs.next()) {
+                System.out.println("Producto: " + rs.getString("nombre") + " Total: " + rs.getInt("total"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void obtenerItemsFactura(Connection connection, Factura factura) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST_ITEMS_FACTURAS)) {
             preparedStatement.setInt(1, factura.getNumeroFactura());
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -77,6 +123,8 @@ public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
                     Statement.RETURN_GENERATED_KEYS)) {
                 psFactura.setDate(1, Formato.convertirLocalDateTimeSqlDate(factura.getFecha()));
                 psFactura.setInt(2, factura.getCliente().getId());
+                psFactura.setDouble(3, factura.getDescuento());
+                psFactura.setDouble(4, factura.getImpuesto());
                 psFactura.executeUpdate();
 
                 try (ResultSet generatedKeys = psFactura.getGeneratedKeys()) {
@@ -134,7 +182,9 @@ public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
         final Cliente cliente = new Cliente(clienteId, documento, nombre, apellido, email, direccion, celular);
         final int numeroFactura = rs.getInt("numeroFactura");
         final LocalDateTime fecha = Formato.convertirTimestampFecha(rs.getTimestamp("fecha"));
-        return new Factura(numeroFactura, fecha, cliente);
+        final double descuento = rs.getDouble("descuento");
+        final double impuesto = rs.getDouble("impuesto");
+        return new Factura(numeroFactura, fecha, cliente, descuento, impuesto);
 
     }
 

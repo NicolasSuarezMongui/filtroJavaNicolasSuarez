@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Data;
 
 @Data
-public class ConexionBDJson  {
+public class ConexionBDJson {
 
     private static ConexionBDJson conexion;
     private List<Cliente> listaClientes;
@@ -26,7 +26,7 @@ public class ConexionBDJson  {
         listaClientes = new ArrayList<>();
         listaProductos = new ArrayList<>();
         listFacturas = new ArrayList<>();
-       
+
     }
 
     public static ConexionBDJson getConexion() {
@@ -38,30 +38,35 @@ public class ConexionBDJson  {
         }
     }
 
-    
 
     public List<Cliente> getDataClientes() {
-        ObjectMapper objectMapper=new ObjectMapper();            
-            try{
-                listaClientes=objectMapper.readValue(new File("clientes.json"), new TypeReference<List<Cliente>>(){});
-            }catch(IOException e){
-               e.printStackTrace();
-            }
-            return listaClientes;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            listaClientes = objectMapper.readValue(new File("clientes.json"), new TypeReference<List<Cliente>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listaClientes;
     }
-    public void saveDataClientes(List<Cliente> listClientesUpdate){
+
+    public void saveDataClientes(List<Cliente> listClientesUpdate) {
+
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            objectMapper.writeValue(new File("clientes.json"), listClientesUpdate);
-            System.out.println("Se guardo los clientes en cliente.json");
+            if (listClientesUpdate.isEmpty()) {
+                new File("clientes.json").delete();
+                System.out.println("Se borraron los datos del archivo clientes.json");
+            } else {
+                objectMapper.writeValue(new File("clientes.json"), listClientesUpdate);
+                System.out.println("Se guardaron los clientes en clientes.json");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
     
 
     

@@ -9,7 +9,20 @@ public interface ServiceFactura {
 
     List<Factura> listar();
 
+    List<Factura> listarPorAnho(int anho);
+
     void crear(Factura factura)throws FacturaExceptionInsertDataBase;
 
-    
+    double totalVentas();
+
+    double totalDescuentos();
+
+    double totalImpuestos();
+
+    void listarClientesPorCompras();
+
+    void listarProductosMasVendidos();
+
+    double getImpuestoAnual(int anho);
+
 }

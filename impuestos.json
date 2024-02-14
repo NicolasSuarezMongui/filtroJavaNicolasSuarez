@@ -1,0 +1,226 @@
+[ {
+  "cliente" : {
+    "id" : 1,
+    "nombre" : "1001",
+    "apellido" : "Juan",
+    "email" : "Perez",
+    "direccion" : "jperez@gmail.com",
+    "celular" : "Calle 123",
+    "documento" : "31448975",
+    "fullName" : "1001 Juan"
+  },
+  "numeroFactura" : 1,
+  "fecha_factura" : "2024-01-15T05:00:00",
+  "totalFactura" : 220.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 2,
+    "nombre" : "1002",
+    "apellido" : "Maria",
+    "email" : "Lopez",
+    "direccion" : "mlopez@gmail.com",
+    "celular" : "Avenida 456",
+    "documento" : "31567890",
+    "fullName" : "1002 Maria"
+  },
+  "numeroFactura" : 2,
+  "fecha_factura" : "2024-01-16T06:30:00",
+  "totalFactura" : 200.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 3,
+    "nombre" : "1003",
+    "apellido" : "Carlos",
+    "email" : "Gomez",
+    "direccion" : "cgomez@gmail.com",
+    "celular" : "Carrera 789",
+    "documento" : "31789012",
+    "fullName" : "1003 Carlos"
+  },
+  "numeroFactura" : 3,
+  "fecha_factura" : "2024-01-17T09:45:00",
+  "totalFactura" : 55.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 4,
+    "nombre" : "1004",
+    "apellido" : "Laura",
+    "email" : "Martinez",
+    "direccion" : "lmartinez@gmail.com",
+    "celular" : "Calle 567",
+    "documento" : "31890123",
+    "fullName" : "1004 Laura"
+  },
+  "numeroFactura" : 4,
+  "fecha_factura" : "2024-01-18T04:15:00",
+  "totalFactura" : 0.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 5,
+    "nombre" : "1005",
+    "apellido" : "Pedro",
+    "email" : "Rodriguez",
+    "direccion" : "prodriguez@gmail.com",
+    "celular" : "Calle 890",
+    "documento" : "31901234",
+    "fullName" : "1005 Pedro"
+  },
+  "numeroFactura" : 5,
+  "fecha_factura" : "2024-01-19T11:20:00",
+  "totalFactura" : 0.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 1,
+    "nombre" : "1001",
+    "apellido" : "Juan",
+    "email" : "Perez",
+    "direccion" : "jperez@gmail.com",
+    "celular" : "Calle 123",
+    "documento" : "31448975",
+    "fullName" : "1001 Juan"
+  },
+  "numeroFactura" : 6,
+  "fecha_factura" : "2024-01-23T08:10:00",
+  "totalFactura" : 0.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 2,
+    "nombre" : "1002",
+    "apellido" : "Maria",
+    "email" : "Lopez",
+    "direccion" : "mlopez@gmail.com",
+    "celular" : "Avenida 456",
+    "documento" : "31567890",
+    "fullName" : "1002 Maria"
+  },
+  "numeroFactura" : 7,
+  "fecha_factura" : "2024-01-25T10:30:00",
+  "totalFactura" : 0.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 3,
+    "nombre" : "1003",
+    "apellido" : "Carlos",
+    "email" : "Gomez",
+    "direccion" : "cgomez@gmail.com",
+    "celular" : "Carrera 789",
+    "documento" : "31789012",
+    "fullName" : "1003 Carlos"
+  },
+  "numeroFactura" : 8,
+  "fecha_factura" : "2024-01-27T13:00:00",
+  "totalFactura" : 130.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 4,
+    "nombre" : "1004",
+    "apellido" : "Laura",
+    "email" : "Martinez",
+    "direccion" : "lmartinez@gmail.com",
+    "celular" : "Calle 567",
+    "documento" : "31890123",
+    "fullName" : "1004 Laura"
+  },
+  "numeroFactura" : 9,
+  "fecha_factura" : "2024-01-29T05:45:00",
+  "totalFactura" : 240.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 5,
+    "nombre" : "1005",
+    "apellido" : "Pedro",
+    "email" : "Rodriguez",
+    "direccion" : "prodriguez@gmail.com",
+    "celular" : "Calle 890",
+    "documento" : "31901234",
+    "fullName" : "1005 Pedro"
+  },
+  "numeroFactura" : 10,
+  "fecha_factura" : "2024-01-31T07:25:00",
+  "totalFactura" : 75.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 5,
+    "nombre" : "1005",
+    "apellido" : "Pedro",
+    "email" : "Rodriguez",
+    "direccion" : "prodriguez@gmail.com",
+    "celular" : "Calle 890",
+    "documento" : "31901234",
+    "fullName" : "1005 Pedro"
+  },
+  "numeroFactura" : 11,
+  "fecha_factura" : "2024-02-12T19:00:00",
+  "totalFactura" : 120.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 3,
+    "nombre" : "1003",
+    "apellido" : "Carlos",
+    "email" : "Gomez",
+    "direccion" : "cgomez@gmail.com",
+    "celular" : "Carrera 789",
+    "documento" : "31789012",
+    "fullName" : "1003 Carlos"
+  },
+  "numeroFactura" : 12,
+  "fecha_factura" : "2024-02-12T19:00:00",
+  "totalFactura" : 330.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 3,
+    "nombre" : "1003",
+    "apellido" : "Carlos",
+    "email" : "Gomez",
+    "direccion" : "cgomez@gmail.com",
+    "celular" : "Carrera 789",
+    "documento" : "31789012",
+    "fullName" : "1003 Carlos"
+  },
+  "numeroFactura" : 13,
+  "fecha_factura" : "2024-02-12T19:00:00",
+  "totalFactura" : 330.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 2,
+    "nombre" : "1002",
+    "apellido" : "Maria",
+    "email" : "Lopez",
+    "direccion" : "mlopez@gmail.com",
+    "celular" : "Avenida 456",
+    "documento" : "31567890",
+    "fullName" : "1002 Maria"
+  },
+  "numeroFactura" : 14,
+  "fecha_factura" : "2024-02-12T19:00:00",
+  "totalFactura" : 550.0,
+  "impuesto" : 0.0
+}, {
+  "cliente" : {
+    "id" : 1,
+    "nombre" : "1001",
+    "apellido" : "Juan",
+    "email" : "Perez",
+    "direccion" : "jperez@gmail.com",
+    "celular" : "Calle 123",
+    "documento" : "31448975",
+    "fullName" : "1001 Juan"
+  },
+  "numeroFactura" : 15,
+  "fecha_factura" : "2024-02-12T19:00:00",
+  "totalFactura" : 780.0,
+  "impuesto" : 148.2
+} ]

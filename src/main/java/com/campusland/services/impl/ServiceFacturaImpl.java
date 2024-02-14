@@ -1,5 +1,6 @@
 package com.campusland.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.campusland.exceptiones.facturaexceptions.FacturaExceptionInsertDataBase;
@@ -20,8 +21,54 @@ public class ServiceFacturaImpl implements ServiceFactura {
   @Override
   public List<Factura> listar() {
     return this.repositoryFacturaMysql.listar();
-
   }
+
+    @Override
+    public List<Factura> listarPorAnho(int anho) {
+        List<Factura> facturas = new ArrayList<>();
+        for (Factura factura : listar()) {
+            if (factura.getFecha().getYear() == anho) {
+                facturas.add(factura);
+            }
+        }
+        return facturas;
+    }
+
+  public double totalVentas() {
+      double totalVentas = 0;
+      for (Factura factura : listar()) {
+          totalVentas += factura.getTotalFactura();
+      }
+      return totalVentas;
+  }
+
+    public double totalDescuentos() {
+        double totalDescuentos = 0;
+        for (Factura factura : listar()) {
+            totalDescuentos += factura.getDescuento();
+        }
+        return totalDescuentos;
+    }
+
+    public double totalImpuestos() {
+        double totalImpuestos = 0;
+        for (Factura factura : listar()) {
+            totalImpuestos += factura.getImpuesto();
+        }
+        return totalImpuestos;
+    }
+
+    public void listarClientesPorCompras() {
+        this.repositoryFacturaMysql.listarClientesPorCompras();
+    }
+
+    public void listarProductosMasVendidos() {
+        this.repositoryFacturaMysql.listarProductosMasVendidos();
+    }
+
+    public double getImpuestoAnual(int anho) {
+        return this.repositoryFacturaMysql.getImpuestoAnual(anho);
+    }
 
   @Override
   public void crear(Factura factura) {

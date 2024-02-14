@@ -24,4 +24,22 @@ public class RepositoryFacturaJsonImpl implements RepositoryFactura {
        
     }
 
+    @Override
+    public void listarClientesPorCompras() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void listarProductosMasVendidos() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public double getImpuestoAnual(int anho) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }
